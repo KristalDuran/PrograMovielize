@@ -2,24 +2,30 @@ var express = require("express");
 var bodyParser=require("body-parser");
 const readJson = require("./readJson.js");
 const shapes = require(".//public/grapher/grapher.js");
+<<<<<<< HEAD
 
 //const path = require('path');
 //const fs = require('fs');
 //var jwt = require('jsonwebtoken');
 //const NodeRSA = require('node-rsa');
+=======
+>>>>>>> c731074468bed98e43745ae441ac603d529791be
 
 var app = express();
-
+var fs = require('fs');
+var d3 = require('d3');
 var movies = [];
 var cont = 0;
+var matchMovies = [];
+var json = fs.readFileSync('sample.json','utf-8');
+const NodeRSA = require('node-rsa');
+//const JSEncrypt = require('jsencrypt');
+
 app.use(express.static('public')); //archivos que no cambian
 
 app.use(bodyParser.json());  //para peticiones de aplicaciones formato json
 
 app.use(bodyParser.urlencoded({extended:true}));
-
-
-//var json = require(express.static("https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"));
 
 
 app.post("/addMovie", function(req,res){
@@ -41,40 +47,42 @@ app.post("/addMovie", function(req,res){
 app.post("/showGraphic", function(req,res){
   var yearFrom = req.body.yearFrom;
   var yearTo =req.body.yearTo;
-  readJson.makeTrees(readJson.getDatURL());
-  var matchMovies = readJson.search(movies);
+  readJson.makeTrees(JSON.parse(json));
+  matchMovies = readJson.search(movies);
   console.log(matchMovies);
   for (var i = 0; i < matchMovies.length; i++) {
     console.log("for final " + matchMovies[i].title);
   }
-  //shapes.shapes(readJson.search(movies), yearFrom, yearTo);
-  //res.redirect("/graph/d3.html");
-  res.redirect("/showGraphic.html");
+  shapes.yearFrom  = yearFrom;
+  shapes.yearTo = yearTo;
+  shapes.resultado = readJson.search(movies);
+  res.redirect("/grapher/prueba.html");
+  //res.redirect("/showGraphic.html");
+});
+
+app.post("/showGraphicSave", function(req,res){
+  var key = req.body.publicKey;
+  //decifrarKey sacar info
+  //shapes.yearFrom  = yearFrom;
+  //shapes.yearTo = yearTo;
+  //shapes.resultado = readJson.search(movies);
+  res.redirect("/grapher/prueba.html");
 });
 
 app.post("/saveInfo", function(req, res){
-  const keyPrivate = new NodeRSA('-----BEGIN RSA PRIVATE KEY-----\n'+
-                      'MIIBOQIBAAJAVY6quuzCwyOWzymJ7C4zXjeV/232wt2ZgJZ1kHzjI73wnhQ3WQcL\n'+
-                      'DFCSoi2lPUW8/zspk0qWvPdtp6Jg5Lu7hwIDAQABAkBEws9mQahZ6r1mq2zEm3D/\n'+
-                      'VM9BpV//xtd6p/G+eRCYBT2qshGx42ucdgZCYJptFoW+HEx/jtzWe74yK6jGIkWJ\n'+
-                      'AiEAoNAMsPqwWwTyjDZCo9iKvfIQvd3MWnmtFmjiHoPtjx0CIQCIMypAEEkZuQUi\n'+
-                      'pMoreJrOlLJWdc0bfhzNAJjxsTv/8wIgQG0ZqI3GubBxu9rBOAM5EoA4VNjXVigJ\n'+
-                      'QEEk1jTkp8ECIQCHhsoq90mWM/p9L5cQzLDWkTYoPI49Ji+Iemi2T5MRqwIgQl07\n'+
-                      'Es+KCn25OKXR/FJ5fu6A6A+MptABL3r8SEjlpLc=\n'+
-                      '-----END RSA PRIVATE KEY-----');
-  console.log("llave "+keyPrivate);
-  var publicKey = new NodeRSA('-----BEGIN PUBLIC KEY-----\n' +
-                'MIIBYjANBgkqhkiG9w0BAQEFAAOCAU8AMIIBSgKCAUEAsE1edyfToZRv6cFOkB0t\n' +
-                'AJ5qJor4YF5CccJAL0fS/o1Yk10VSXH4Xx4peSJgYQKkO0HqO1hAz6k9dFQB4U1C\n' +
-                'nWtRjtNEcIfycqrZrhu6you5syb6ScV3Zu/9bm7/DyaLlx/gJhUPR1OxOzaqsEvl\n' +
-                'u7hbDhNLIYo1zKFb/aUBbD6+UcaGxH2BfFNdzVAtVSVpc/s2Y3sboMN7rByUj793\n' +
-                '7iQlaMINvVjyasynYuzHNw6ZRP9JP9fwxrCyaxnTPWxVl0qvVaQO2+TtFMtDXH2O\n' +
-                'VZtWWeLHAL8cildw0G+u2qVqTqIGEwNyJlsAHykaPFAMW0xLueumrSlB+JUJPrRv\n' +
-                'vw4nBCd4GOrNSlPCE/xlk1Cb8JaICTLvDUcYc3ZqL3jqAueBhkpw2uCz8xVJeOA1\n' +
-                'KY4kQIIx8JEBsAYzgyP2iy0CAwEAAQ==\n' +
-                '-----END PUBLIC KEY-----');
-  console.log("Su llave publica es: " + publicKey);
-  res.redirect("/index.html");
+
+  //const key = new NodeRSA({b: 512});
+  var myDecrypter = new NodeRSA({b: 512});
+  //key.generateKeyPair(); //key size in bits. 2048 by default. — public exponent. 65537 by default
+   var publicKeyJson = {"Key": ""};
+   publicKeyJson.Key = myDecrypter.exportKey('public');
+   console.log(publicKeyJson.key);
+   res.redirect("/index.html")
+   //var myEncrypter = new JSEncrypt();
+   //myEncrypter.setPublicKey(publicKeyJson.key);
+   //myEncrypter.encrypt(matchMovies, 'base64', 'utf-8');
+   //var clearMessage = myDecrypter.decrypt(publicKeyJson.key, 'utf8');
+   //console.log(myEncrypter+"\n+clearMessage");
 });
 
 app.listen(8080);

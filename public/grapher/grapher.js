@@ -47,9 +47,14 @@ function start(){
   ["comedia",1935,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["comedia",1965,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["terror",1970,["a","a","a"],"hombres de negro", "a"]];
+<<<<<<< HEAD
   */
 
   resultManager(result,1900, 1990);
+=======
+*/
+  resultManager(result,yearFrom, yearTo);
+>>>>>>> c731074468bed98e43745ae441ac603d529791be
 }
 
 start();
@@ -190,8 +195,8 @@ function resultManager(result, from, to){
       from = from + rangeSize;
     }
   }
-}
 
+}
 function getOffsetToDraw(from, to){
   if(to - from >= 10){
     var range = (to - from) / 3;
