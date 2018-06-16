@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser=require("body-parser");
 const readJson = require("./readJson.js");
+const shapes = require(".//public/graph/shapes.js");
 var app = express();
 
 var movies = [];
@@ -29,12 +30,12 @@ app.post("/addMovie", function(req,res){
 });
 
 app.post("/showGraphic", function(req,res){
-
+  var yearFrom = req.body.yearFrom;
+  var yearTo =req.body.yearTo;
   readJson.makeTrees(readJson.getDatURL());
-
   readJson.search(movies);
-
-  res.redirect("/showGraphic.html");
+  shapes.shapes(readJson.search(movies), yearFrom, yearTo);
+  res.redirect("/graph/d3.html");
 });
 
 app.listen(8080);

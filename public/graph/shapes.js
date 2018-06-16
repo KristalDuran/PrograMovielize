@@ -1,5 +1,5 @@
 
-var svg = d3.select("body").append("svg").attr('height','100%').attr('width','100%');
+var svg = graph.select("body").append("svg").attr('height','100%').attr('width','100%');
 /*svg.selectAll('rect').data(dataArray).enter()
 .append('rect')
 .attr('height',function(d,i){return d;})
@@ -125,33 +125,34 @@ function drawEdges(x, y, radio, from){
 
 }
 
-function resultManager(result, from, to){
-  From = from;
-  To = to;
-  var resultTmp = [];
-  var rangeSize;
-  var offsetToDraw = getOffsetToDraw(from, to);
-  var offsetIncremental = offsetToDraw;
-  offsetValue = offsetToDraw;
-  if(to - from <= 10){
-    //el % de offset queda en 15 para que dibuje sobre el plano
-    resultTmp = getMoviesByRange(result, from, to);
-    offsetValue = 65;
-    getTypesAndCant(resultTmp, 15);
-  }
-  else{
-    rangeSize = Math.round((to - from) / 3);
-    rango = rangeSize;
-    console.log("el tamaño del rango es: "  + rango);
-    while(from < to){
-      resultTmp = getMoviesByRange(result, from, from + rangeSize);
-      getTypesAndCant(resultTmp, offsetToDraw, from);
-      offsetToDraw = offsetToDraw + offsetIncremental;
-      from = from + rangeSize;
+module.exports = {
+  resultManager: function (result, from, to){
+    From = from;
+    To = to;
+    var resultTmp = [];
+    var rangeSize;
+    var offsetToDraw = getOffsetToDraw(from, to);
+    var offsetIncremental = offsetToDraw;
+    offsetValue = offsetToDraw;
+    if(to - from <= 10){
+      //el % de offset queda en 15 para que dibuje sobre el plano
+      resultTmp = getMoviesByRange(result, from, to);
+      offsetValue = 65;
+      getTypesAndCant(resultTmp, 15);
+    }
+    else{
+      rangeSize = Math.round((to - from) / 3);
+      rango = rangeSize;
+      console.log("el tamaño del rango es: "  + rango);
+      while(from < to){
+        resultTmp = getMoviesByRange(result, from, from + rangeSize);
+        getTypesAndCant(resultTmp, offsetToDraw, from);
+        offsetToDraw = offsetToDraw + offsetIncremental;
+        from = from + rangeSize;
+      }
     }
   }
 }
-
 function getOffsetToDraw(from, to){
   if(to - from >= 10){
     var range = (to - from) / 3;
