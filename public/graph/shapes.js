@@ -1,4 +1,4 @@
-var d3 = require("d3");
+
 console.log("dos");
 var svg = d3.select("body").append("svg").attr('height','100%').attr('width','100%');
 
