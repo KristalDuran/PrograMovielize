@@ -1,10 +1,15 @@
 var svg;
 var result;
+var yearFrom;
+var yearTo;
+module.exports.result = result;
+module.exports.yearFrom = yearFrom;
+module.exports.yearTo = yearTo;
 var d3 = require('d3');
 
 function start(){
   svg = d3.select("body").append("svg").attr('height','100%').attr('width','100%');
-  result =
+  /*result =
   [["comedia",1905,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["comedia",1905,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["comedia",1905,["actorD","actorE","actorF"],"hombres de negro", "director name"],
@@ -34,8 +39,8 @@ function start(){
   ["comedia",1935,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["comedia",1965,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["terror",1970,["a","a","a"],"hombres de negro", "a"]];
-
-  resultManager(result,1900, 1990);
+*/
+  resultManager(result,yearFrom, yearTo);
 }
 
 /*svg.selectAll('rect').data(dataArray).enter()
@@ -159,8 +164,8 @@ function resultManager(result, from, to){
       from = from + rangeSize;
     }
   }
-}
 
+}
 function getOffsetToDraw(from, to){
   if(to - from >= 10){
     var range = (to - from) / 3;
