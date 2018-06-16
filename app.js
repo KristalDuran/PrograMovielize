@@ -8,8 +8,7 @@ var jwt = require('jsonwebtoken');
 const NodeRSA = require('node-rsa');
 //const shapes = require(".//public/graph/shapes.js");
 var app = express();
-var fs = require('fs');
-var d3 = require('d3');
+
 var movies = [];
 var cont = 0;
 app.use(express.static('public')); //archivos que no cambian
@@ -18,7 +17,7 @@ app.use(bodyParser.json());  //para peticiones de aplicaciones formato json
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-var json = require(express.static("https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"));
+//var json = require(express.static("https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"));
 
 app.post("/addMovie", function(req,res){
   console.log(json.settings);
