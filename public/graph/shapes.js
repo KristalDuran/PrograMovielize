@@ -1,5 +1,7 @@
+var d3 = require("d3");
+console.log("dos");
+var svg = d3.select("body").append("svg").attr('height','100%').attr('width','100%');
 
-var svg = graph.select("body").append("svg").attr('height','100%').attr('width','100%');
 /*svg.selectAll('rect').data(dataArray).enter()
 .append('rect')
 .attr('height',function(d,i){return d;})
@@ -8,6 +10,7 @@ var svg = graph.select("body").append("svg").attr('height','100%').attr('width',
 .attr('x',function(d,i){return 80*i;})
 .attr('y',function(d,idea){return 400-d;});
 */
+console.log("paso");
 var rango = 0;
 var From = 0;
 var To = 0;
@@ -43,12 +46,6 @@ var result =
 ["comedia",1935,["actorD","actorE","actorF"],"hombres de negro", "director name"],
 ["comedia",1965,["actorD","actorE","actorF"],"hombres de negro", "director name"],
 ["terror",1970,["a","a","a"],"hombres de negro", "a"]];
-
-
-
-draw();
-resultManager(result,1900, 1990);
-
 
 function grupoPelicula(genero){
     this.actores = [];
@@ -127,6 +124,7 @@ function drawEdges(x, y, radio, from){
 
 module.exports = {
   resultManager: function (result, from, to){
+    draw();
     From = from;
     To = to;
     var resultTmp = [];
