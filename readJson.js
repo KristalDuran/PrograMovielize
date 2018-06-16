@@ -40,7 +40,7 @@ module.exports = {
     for (var i = 0; i < listJson.length; i++) {
 
       if(listJson[i].cast !== null)
-        actors[listJson[i].cast] = addDetail(actors[listJson[i].cast], listJson[i]);
+        addDetailCast(listJson[i].cast, listJson[i]);
 
       if(listJson[i].director !== null)
         directors[listJson[i].director] = addDetail(directors[listJson[i].director],listJson[i]);
@@ -83,45 +83,48 @@ module.exports = {
             and([],null, null, yearFrom, yearTo, genre);
           }else{
             if(genre !== undefined && genre !== null){
-              console.log("genero");
+
               and(genres[genre],null, null, yearFrom, yearTo, null);
             }else{
               if(yearFrom !== undefined && yearFrom !== null && yearTo !== undefined && yearTo !== null){
-                console.log("year");
+
                 and([],null, null, mull, null, null);
               }
             }
           }
         }
       }
-      console.log("Esta "+ lengthList);
     }
+    return matchMovies;
   }
 
 } // end exports
 function searchByActor(list){
+
   if(list === null){
-    return null;
+    return;
   }
-  var actor = "";
-  var cant;
+  var cant = 0;
   var actorsList = [];
-  for (var i = 0; i < list.length; i++) {
-    var char = list[i];
-    if(char === ',' || i === (list.length)-1){
-      if(i === (list.length)-1){
-        actor += char;
-      }
-      if(actors[actor] !== undefined){
-        actorsList[cant] = actor;
-      }
-      //buscar actor en lista de actores y almacenar la pelicula en la que sale
-      actor = "";
-    }else{
-      actor += char;
+  var listActors = list.split(",");
+
+  for (var posListActors = 0; posListActors < listActors.length; posListActors++) {
+    if(actors[listActors[posListActors]] !== undefined){
+      actorsList[cant] = listActors[posListActors];
+      cant++;
     }
   }
   return actorsList;
+}
+
+function addDetailCast(stringCast, value){
+  if(stringCast === null){
+    return;
+  }
+  var listActors = stringCast.split(",");
+  for (var posListActors = 0; posListActors < listActors.length; posListActors++) {
+    actors[listActors[posListActors]] = addDetail(actors[listActors[posListActors]], value);
+  }
 }
 
 function addDetail(list, value){
@@ -129,37 +132,38 @@ function addDetail(list, value){
       list = new Array;
 
     }
-    var idx = list.indexOf(value);
-    if (idx === -1) {
+    //var idx = list.indexOf(value);
+    //if (idx === -1) {
       list.push(value);
-    }
+    //}
     return list;
   }
 
 function and(moviesSearch, director, listsActors, yearFrom, yearTo, genre){
-
     for (var j = 0; j < moviesSearch.length; j++) {
       matchMovies.push(moviesSearch[j]);
-      if(director !== null && moviesSearch[j].director !== director){
-        matchMovies.splice(moviesSearch[j]);
+      if(director !== "" && moviesSearch[j].director !== director){
+        matchMovies.splice(matchMovies.indexOf(moviesSearch[j]), 1);
       }
-      if(genre !== null &&   moviesSearch[j].genre === genre){
+      if(genre !== "" && moviesSearch[j].genre !== genre){
         matchMovies.splice(moviesSearch[j]);
       }
       if(listsActors !== null){
         if(notSameActors(moviesSearch[j].cast, listsActors)){
-          matchMovies.splice(moviesSearch[j]);
+          matchMovies.splice(matchMovies.indexOf(moviesSearch[j]), 1);
         }
       }
-      //faltan los actores
       if(yearFrom !== null && moviesSearch[j].yearFrom >= yearFrom && yearFrom !== null && moviesSearch[j].yearFrom >= yearFrom){
-        matchMovies.splice(moviesSearch[j]);
+        matchMovies.splice(matchMovies.indexOf(moviesSearch[j]), 1 );
       }
 
     }
   }
 
 function notSameActors(cast, listActors){
+  if(listActorMovie === undefined){
+    return;
+  }
   var listActorMovie = searchByActor(cast);
   var isThere = false;
   for (var i = 0; i < listActorMovie.length; i++) {
@@ -174,3 +178,4 @@ function notSameActors(cast, listActors){
   }
   return false;
 }
+searchByActor("juan,miguel,maria,carlos",{"titulo":"mi movie", "carro":2050});

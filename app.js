@@ -17,10 +17,8 @@ app.use(bodyParser.json());  //para peticiones de aplicaciones formato json
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-var json = require(express.static("https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"));
 
 app.post("/addMovie", function(req,res){
-  console.log(json.settings);
   var title = req.body.title;
   var yearFrom = req.body.yearFrom;
   var yearTo =req.body.yearTo;
@@ -40,7 +38,11 @@ app.post("/showGraphic", function(req,res){
   var yearFrom = req.body.yearFrom;
   var yearTo =req.body.yearTo;
   readJson.makeTrees(readJson.getDatURL());
-  readJson.search(movies);
+  var matchMovies = readJson.search(movies);
+  console.log(matchMovies);
+  for (var i = 0; i < matchMovies.length; i++) {
+    console.log("for final " + matchMovies[i].title);
+  }
   //shapes.shapes(readJson.search(movies), yearFrom, yearTo);
   res.redirect("/graph/d3.html");
 });
