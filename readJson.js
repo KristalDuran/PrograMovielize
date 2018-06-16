@@ -58,7 +58,6 @@ function getDatURL(){
 
 
    function search(listJsonUser){
-     var matchMoviesIsNull = false;
     for (var lengthList = 0; lengthList < listJsonUser.length; lengthList++) {
       var actor = listJsonUser[lengthList].cast;
       var title = listJsonUser[lengthList].title;
@@ -69,34 +68,33 @@ function getDatURL(){
 
       var listsActors = searchByActor(actor);
 
-      if(title !== null){
+      if(title !== undefined){
         if(movies[title] !== undefined){
-          console.log("movies "+movies[title]);
           and(movies[title], director, listsActors, yearFrom, yearTo, genre);
-          console.log(matchMoviesIsNull);
         }else break;
       }else{
-        if(director !== null){
+        if(director !== undefined && director !== null){
           if(directors[director] !== undefined){
-            console.log("director "+directors[director]);
             and(directors[director], null, listsActors, yearFrom, yearTo, genre);
             console.log(matchMoviesIsNull);
           }else break;
         }else{
-          if(actor !== null){
-            console.log(actor);
+          if(actor !== undefined && actor !== null){
             and([],null, null, yearFrom, yearTo, genre);
           }else{
-            if(genre !== null){
+            if(genre !== undefined && genre !== null){
+              console.log("genero");
               and(genres[genre],null, null, yearFrom, yearTo, null);
             }else{
-              if(yearFrom !== null && yearTo !== null){
+              if(yearFrom !== undefined && yearFrom !== null && yearTo !== undefined && yearTo !== null){
+                console.log("year");
                 and([],null, null, mull, null, null);
               }
             }
           }
         }
       }
+      console.log("Esta "+ lengthList);
     }
   }
 
@@ -139,7 +137,7 @@ function addDetail(list, value){
   }
 
 function and(moviesSearch, director, listsActors, yearFrom, yearTo, genre){
-  console.log("and");
+
     for (var j = 0; j < moviesSearch.length; j++) {
       matchMovies.push(moviesSearch[j]);
       if(director !== null && moviesSearch[j].director !== director){
@@ -147,6 +145,11 @@ function and(moviesSearch, director, listsActors, yearFrom, yearTo, genre){
       }
       if(genre !== null &&   moviesSearch[j].genre === genre){
         matchMovies.splice(moviesSearch[j]);
+      }
+      if(listsActors !== null){
+        if(notSameActors(moviesSearch[j].cast, listsActors)){
+          matchMovies.splice(moviesSearch[j]);
+        }
       }
       //faltan los actores
       if(yearFrom !== null && moviesSearch[j].yearFrom >= yearFrom && yearFrom !== null && moviesSearch[j].yearFrom >= yearFrom){
@@ -156,6 +159,28 @@ function and(moviesSearch, director, listsActors, yearFrom, yearTo, genre){
     }
   }
 
+function notSameActors(cast, listActors){
+  var listActorMovie = searchByActor(cast);
+  var isThere = false;
+  for (var i = 0; i < listActorMovie.length; i++) {
+    for (var j = 0; j < listActors.length; j++) {
+      if(listActorMovie[i] === listActors[j]){
+        isThere = true;
+      }
+    }
+    if(isThere === false){
+      return true;
+    }
+  }
+  return false;
+}
+
 makeTrees(getDatURL());
-search([{"title":"After Dark in Central Park","year":1900,"director":null,"cast":"Jose","genre":null,"notes":null},
-{"title":"jojo","year":1900,"director":null,"cast":"Jose","genre":null,"notes":null}]);
+search([{"year":1900,"director":null,"cast":"Jose","genre":null,"notes":null},{"title":"Boarding School Girls' Pajama Parade","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
+{"title":"Buffalo Bill's Wild West Parad","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Caught","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Clowns Spinning Hats","year":1900,
+"director":null,"cast":null,"genre":null,"notes":null},{"title":"Capture of Boer Battery by British","year":1900,"director":"James H. White","cast":null,"genre":"Short documentary","notes":null},{"title":"The Enchanted Drawing","year":1900,
+"director":"J. Stuart Blackton","cast":null,"genre":null,"notes":null},{"title":"Family Troubles","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Feeding Sea Lions","year":1900,"director":null,"cast":"Paul Boyton",
+"genre":null,"notes":null},{"title":"How to Make a Fat Wife Out of Two Lean Ones","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},{"title":"New Life Rescue","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
+{"title":"New Morning Bath","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Searching Ruins on Broadway, Galveston, for Dead Bodies","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
+{"title":"The Tribulations of an Amateur Photographer","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Trouble in Hogan's Alley","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},
+{"title":"Two Old Sparks","year":1900,"director":null,"cast":null,"genre":"Short","notes":"Produced by Siegmund Lubin"}]);
