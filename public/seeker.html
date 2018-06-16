@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html(lang="es")>
+<head>
+<meta charset="UTF-8">
+<title>Movieleze</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <center>
+    <h1> Movieleze </h1>
+    <h3> Seeker </h3>
+
+    <form action="/addMovie" method="POST">
+      <div class="form-group">
+        Title:
+        <input type="text", name="title", class="form-control">
+      </div>
+      <div class="form-group">
+        Director:
+        <input type="text", name="director", class="form-control">
+      </div>
+      <div class="form-group">
+        Actors:
+        <input type="text", name="actors", class="form-control">
+      </div>
+      <div class="form-group">
+        Genre:
+        <input type="text", name="genre", class="form-control">
+      </div>
+      <div class="form-group">
+        Year from:
+        <input type="number", name="yearFrom", class="form-control">
+      </div>
+      <div class="form-group">
+        Year to:
+        <input type="number", name="yearTo", class="form-control">
+      </div>
+
+        <center>
+          <div class="form-group">
+            <input type="submit" value="Add movie" class="btn btn-info">
+          </div>
+        </center>
+    </form>
+    <center>
+      <form action="/showGraphic" method="POST">
+        <input type="submit" value="Search" class="btn btn-info">
+      </form>
+    </center>
+</body>
+</html>
