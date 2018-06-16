@@ -6,37 +6,37 @@ var years = new Object();
 var movies = new Object();
 var matchMovies = new Array;
 
-module.exports = {}
+module.exports = {
 
-function getDatURL(){
-  console.log("En get url");
+  getDatURL: function (){
+    console.log("En get url");
 
-  var listJson = [{"title":"After Dark in Central Park","year":1900,"director":null,"cast":"Jose","genre":null,"notes":null},{"title":"Boarding School Girls' Pajama Parade","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"Buffalo Bill's Wild West Parad","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Caught","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Clowns Spinning Hats","year":1900,
-  "director":null,"cast":null,"genre":null,"notes":null},{"title":"Capture of Boer Battery by British","year":1900,"director":"James H. White","cast":null,"genre":"Short documentary","notes":null},{"title":"The Enchanted Drawing","year":1900,
-  "director":"J. Stuart Blackton","cast":null,"genre":null,"notes":null},{"title":"Family Troubles","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Feeding Sea Lions","year":1900,"director":null,"cast":"Paul Boyton",
-  "genre":null,"notes":null},{"title":"How to Make a Fat Wife Out of Two Lean Ones","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},{"title":"New Life Rescue","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"New Morning Bath","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Searching Ruins on Broadway, Galveston, for Dead Bodies","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"The Tribulations of an Amateur Photographer","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Trouble in Hogan's Alley","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},
-  {"title":"Two Old Sparks","year":1900,"director":null,"cast":null,"genre":"Short","notes":"Produced by Siegmund Lubin"},{"title":"The Wonder, Ching Ling Foo","year":1900,"director":null,"cast":"Ching Ling Foo","genre":"Short",
-  "notes":"Produced by Siegmund Lubin"},{"title":"Watermelon Contest","year":1900,"director":"James H. White","cast":null,"genre":"Short","notes":null},{"title":"Acrobats in Cairo","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"An Affair of Honor","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Another Job for the Undertaker","year":1901,"director":"Edwin Stanton Porter","cast":null,"genre":null,"notes":null},
-  {"title":"Arrival of Tongkin Train","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"The Artist's Dilemma","year":1901,"director":"Edwin Stanton Porter","cast":null,"genre":null,"notes":null},{"title":"Band and Battalion of the U.S. Indian School",
-  "year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Barnum and Bailey's Circus","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Beef Extract Room","year":1901,"director":null,"cast":null,
-  "genre":null,"notes":null},{"title":"Boxing in Barrels","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Branding Hams","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"Buffalo Street Parade","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"A Busy Corner at Armour's","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"The Bund, Shanghai","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Circular Panorama of the Base of the Electric Tower, Ending Looking Down the Mall","year":1901,"director":null,
-  "cast":null,"genre":null,"notes":null},{"title":"Circular Panorama of the Electric Tower and Pond","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"Circular Panorama of the Esplanade with the Electric Tower in the Background","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Coaling a Steamer, Nagasaki Bay, Japan","year":1901,
-  "director":null,"cast":null,"genre":null,"notes":null},{"title":"Convention of Railroad Passengers Agents","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"The Cook's Revenge",
-  "year":1901,"director":null,"cast":"Jose","genre":null,"notes":null},{"title":"Cornell-Columbia-University of Pennsylvania Boat Race at Ithaca, N.Y., Showing Lehigh Valley Observation Train","year":1901,"director":null,
-  "cast":null,"genre":null,"notes":null},{"title":"Couchee Dance on the Midway","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"The Donkey Party","year":1901,"director":null,"cast":null,
-  "genre":null,"notes":null},{"title":"The Finish of Bridget McKeen","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Follow the Leader","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
-  {"title":"The Fraudulent Beggar","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Fun at a Children's Party","year":1901,"director":null,"cast":null,"genre":null,"notes":null}];
-  return listJson;
-}
+    var listJson = [{"title":"After Dark in Central Park","year":1900,"director":null,"cast":"Jose","genre":null,"notes":null},{"title":"Boarding School Girls' Pajama Parade","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"Buffalo Bill's Wild West Parad","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Caught","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Clowns Spinning Hats","year":1900,
+    "director":null,"cast":null,"genre":null,"notes":null},{"title":"Capture of Boer Battery by British","year":1900,"director":"James H. White","cast":null,"genre":"Short documentary","notes":null},{"title":"The Enchanted Drawing","year":1900,
+    "director":"J. Stuart Blackton","cast":null,"genre":null,"notes":null},{"title":"Family Troubles","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Feeding Sea Lions","year":1900,"director":null,"cast":"Paul Boyton",
+    "genre":null,"notes":null},{"title":"How to Make a Fat Wife Out of Two Lean Ones","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},{"title":"New Life Rescue","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"New Morning Bath","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Searching Ruins on Broadway, Galveston, for Dead Bodies","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"The Tribulations of an Amateur Photographer","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Trouble in Hogan's Alley","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},
+    {"title":"Two Old Sparks","year":1900,"director":null,"cast":null,"genre":"Short","notes":"Produced by Siegmund Lubin"},{"title":"The Wonder, Ching Ling Foo","year":1900,"director":null,"cast":"Ching Ling Foo","genre":"Short",
+    "notes":"Produced by Siegmund Lubin"},{"title":"Watermelon Contest","year":1900,"director":"James H. White","cast":null,"genre":"Short","notes":null},{"title":"Acrobats in Cairo","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"An Affair of Honor","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Another Job for the Undertaker","year":1901,"director":"Edwin Stanton Porter","cast":null,"genre":null,"notes":null},
+    {"title":"Arrival of Tongkin Train","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"The Artist's Dilemma","year":1901,"director":"Edwin Stanton Porter","cast":null,"genre":null,"notes":null},{"title":"Band and Battalion of the U.S. Indian School",
+    "year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Barnum and Bailey's Circus","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Beef Extract Room","year":1901,"director":null,"cast":null,
+    "genre":null,"notes":null},{"title":"Boxing in Barrels","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Branding Hams","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"Buffalo Street Parade","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"A Busy Corner at Armour's","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"The Bund, Shanghai","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Circular Panorama of the Base of the Electric Tower, Ending Looking Down the Mall","year":1901,"director":null,
+    "cast":null,"genre":null,"notes":null},{"title":"Circular Panorama of the Electric Tower and Pond","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"Circular Panorama of the Esplanade with the Electric Tower in the Background","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Coaling a Steamer, Nagasaki Bay, Japan","year":1901,
+    "director":null,"cast":null,"genre":null,"notes":null},{"title":"Convention of Railroad Passengers Agents","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"The Cook's Revenge",
+    "year":1901,"director":null,"cast":"Jose","genre":null,"notes":null},{"title":"Cornell-Columbia-University of Pennsylvania Boat Race at Ithaca, N.Y., Showing Lehigh Valley Observation Train","year":1901,"director":null,
+    "cast":null,"genre":null,"notes":null},{"title":"Couchee Dance on the Midway","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"The Donkey Party","year":1901,"director":null,"cast":null,
+    "genre":null,"notes":null},{"title":"The Finish of Bridget McKeen","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Follow the Leader","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
+    {"title":"The Fraudulent Beggar","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Fun at a Children's Party","year":1901,"director":null,"cast":null,"genre":null,"notes":null}];
+    return listJson;
+  }
 
-  function makeTrees(listJson){
+  makeTrees: function (listJson){
     for (var i = 0; i < listJson.length; i++) {
 
       if(listJson[i].cast !== null)
@@ -57,7 +57,7 @@ function getDatURL(){
   }
 
 
-   function search(listJsonUser){
+   search: function (listJsonUser){
     for (var lengthList = 0; lengthList < listJsonUser.length; lengthList++) {
       var actor = listJsonUser[lengthList].cast;
       var title = listJsonUser[lengthList].title;
@@ -98,7 +98,7 @@ function getDatURL(){
     }
   }
 
-
+} // end exports
 function searchByActor(list){
   if(list === null){
     return null;
