@@ -34,7 +34,7 @@ app.post("/showGraphic", function(req,res){
 
   readJson.search(movies);
 
-  res.redirect("/showGraphic");
+  res.redirect("/showGraphic.html");
 });
 
 app.listen(8080);

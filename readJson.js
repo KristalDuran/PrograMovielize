@@ -34,7 +34,7 @@ module.exports = {
     "genre":null,"notes":null},{"title":"The Finish of Bridget McKeen","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Follow the Leader","year":1901,"director":null,"cast":null,"genre":null,"notes":null},
     {"title":"The Fraudulent Beggar","year":1901,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Fun at a Children's Party","year":1901,"director":null,"cast":null,"genre":null,"notes":null}];
     return listJson;
-  }
+  },
 
   makeTrees: function (listJson){
     for (var i = 0; i < listJson.length; i++) {
@@ -54,7 +54,7 @@ module.exports = {
       if(listJson[i].title !== null)
         movies[listJson[i].title] = addDetail(movies[listJson[i].title],listJson[i]);
     }
-  }
+  },
 
 
    search: function (listJsonUser){
@@ -174,13 +174,3 @@ function notSameActors(cast, listActors){
   }
   return false;
 }
-
-makeTrees(getDatURL());
-search([{"year":1900,"director":null,"cast":"Jose","genre":null,"notes":null},{"title":"Boarding School Girls' Pajama Parade","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
-{"title":"Buffalo Bill's Wild West Parad","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Caught","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Clowns Spinning Hats","year":1900,
-"director":null,"cast":null,"genre":null,"notes":null},{"title":"Capture of Boer Battery by British","year":1900,"director":"James H. White","cast":null,"genre":"Short documentary","notes":null},{"title":"The Enchanted Drawing","year":1900,
-"director":"J. Stuart Blackton","cast":null,"genre":null,"notes":null},{"title":"Family Troubles","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Feeding Sea Lions","year":1900,"director":null,"cast":"Paul Boyton",
-"genre":null,"notes":null},{"title":"How to Make a Fat Wife Out of Two Lean Ones","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},{"title":"New Life Rescue","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
-{"title":"New Morning Bath","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Searching Ruins on Broadway, Galveston, for Dead Bodies","year":1900,"director":null,"cast":null,"genre":null,"notes":null},
-{"title":"The Tribulations of an Amateur Photographer","year":1900,"director":null,"cast":null,"genre":null,"notes":null},{"title":"Trouble in Hogan's Alley","year":1900,"director":null,"cast":null,"genre":"Comedy","notes":null},
-{"title":"Two Old Sparks","year":1900,"director":null,"cast":null,"genre":"Short","notes":"Produced by Siegmund Lubin"}]);
