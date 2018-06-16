@@ -3,10 +3,10 @@ var bodyParser=require("body-parser");
 const readJson = require("./readJson.js");
 //const shapes = require(".//public/graph/shapes.js");
 
-const path = require('path');
+//const path = require('path');
 //const fs = require('fs');
-var jwt = require('jsonwebtoken');
-const NodeRSA = require('node-rsa');
+//var jwt = require('jsonwebtoken');
+//const NodeRSA = require('node-rsa');
 
 var app = express();
 
