@@ -1,10 +1,23 @@
 var svg;
 var result;
-var d3 = require('d3');
+//var d3 = require('d3');
 
 function start(){
   svg = d3.select("body").append("svg").attr('height','100%').attr('width','100%');
   result =
+  [{"title":"After Dark in Central Park","year":1900,"director":"aaaasd","cast":null,"genre":"perro","notes":null},
+  {"title":"Boarding School Girls' Pajama Parade","year":1900,"director":null,"cast":null,"genre":"hola","notes":null},
+  {"title":"Buffalo Bill's Wild West Parad","year":1900,"director":"jose,daniel","cast":null,"genre":"perro","notes":null},
+  {"title":"Caught","year":1931,"director":null,"cast":null,"genre":"hola","notes":null}];
+
+  console.log(result[0].director);
+  var asd = [];
+  asd.push(result[0].director);
+  console.log(asd[0]);
+  if(result[0].genre == result[2].genre){
+    console.log("holamundoooooo");
+  }
+  /*
   [["comedia",1905,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["comedia",1905,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["comedia",1905,["actorD","actorE","actorF"],"hombres de negro", "director name"],
@@ -34,10 +47,12 @@ function start(){
   ["comedia",1935,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["comedia",1965,["actorD","actorE","actorF"],"hombres de negro", "director name"],
   ["terror",1970,["a","a","a"],"hombres de negro", "a"]];
+  */
 
   resultManager(result,1900, 1990);
 }
 
+start();
 /*svg.selectAll('rect').data(dataArray).enter()
 .append('rect')
 .attr('height',function(d,i){return d;})
@@ -64,14 +79,30 @@ function grupoPelicula(genero){
     this.genero = genero;
 
     this.addActores = function(array){
-      var i = array.length - 1;
-      for(; i >= 0; i--)
-        if(this.actores.indexOf(array[i]) == -1)
-          this.actores.push(array[i]);
+      if(array != undefined){
+        var i = array.length - 1;
+        for(; i >= 0; i--)
+          if(this.actores.indexOf(array[i]) == -1)
+            this.actores.push(array[i]);
+      }
     }
-    this.addDirector = function(elemento){
-      if(this.directores.indexOf(elemento) == -1)
-        this.directores.push(elemento);
+    this.addDirectores = function(array){
+      if(array != undefined){
+        var recorte = "";
+        for(var i = 0; i < array.length; i++){
+          if(array[i] == "," || (i + 1) == array.lengt){
+            if(this.directores.indexOf(recorte) == -1){
+              this.directores.push(recorte);
+            }
+            recorte = "";
+          }
+          else{
+            recorte = recorte + array[i];
+          }
+        }
+        if(this.directores.indexOf(recorte) == -1)
+          this.directores.push(recorte);
+      }
     }
 
 }
@@ -205,20 +236,20 @@ function getTypesAndCant(result, offset, from){
   for(; i >= 0; i--){
     //obtiene el tipo de pelicula
     if(result[i] != undefined){
-      typeMovie = result[i][0];
-      actores = result[i][2];
-      director = result[i][4];
+      typeMovie = result[i].genre;
+      actores = result[i].cast;
+      director = result[i].director;
       //si el tipo existe aumenta el contador si no lo agrega a la lista
       index = containsMovieGenero(types, typeMovie);
       if(index >= 0){
           typeCounter[index] = typeCounter[index] + 1;
           types[index].addActores(actores);
-          types[index].addDirector(director);
+          types[index].addDirectores(director);
       }
       else{
         types.push(new grupoPelicula(typeMovie));
         types[types.length - 1].addActores(actores);
-        types[types.length - 1].addDirector(director);
+        types[types.length - 1].addDirectores(director);
         typeCounter.push(1);
       }
     }
@@ -226,10 +257,10 @@ function getTypesAndCant(result, offset, from){
   console.log("un grupo de circulos desde: " + from);
   for(var i = 0; i < types.length; i++){
     console.log("________________________________________________________________________");
-    console.log("El resultado de types and cant es: " + types[i].genero);
-    console.log("El resultado de types and cant es: " + types[i].actores.toString());
-    console.log("El resultado de types and cant es: " + types[i].directores.toString());
-    console.log("El resultado de types and cant es: " + typeCounter[i]);
+    console.log("tipos: " + types[i].genre);
+    console.log("actores: " + types[i].actores.toString());
+    console.log("directores: " + types[i].directores.toString());
+    console.log("cantidad: " + typeCounter[i]);
     console.log("________________________________________________________________________");
   }
 
@@ -293,11 +324,16 @@ function getMatchOfList(listA, listB){
 
 //returns indexOf element else -1
 function containsMovieGenero(array, element){
-  var i = array.length - 1;
-
-  for(; i >= 0; i--){
-    if(array[i].genero == element){
-      return i;
+  if(array.length > 0){
+    var i = array.length - 1;
+    for(; i >= 0; i--){
+      if(array.directores != undefined){
+        for(var j = 0; j < array.directores.length;j++){
+          if(array[i].directores[j] == element){
+            return i;
+          }
+        }
+      }
     }
   }
   return -1;
@@ -311,11 +347,22 @@ function getMoviesByRange(result, from, to){
   for(;i >= 0; i--){
     //obtiene el número de año
     if(result[i] != undefined){
-      if(result[i][1] >= from && result[i][1] < to){
+      if(result[i].year >= from && result[i].year < to){
         filter.push(result[i]);
       }
     }
   }
 
   return filter;
+}
+
+function jsonToString(json){
+  var string;
+  if(json != undefined){
+    string = "";
+    for(var i = 0; i < json.length; i++){
+      string = string + json[i];
+    }
+  }
+  return string;
 }

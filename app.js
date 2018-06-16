@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser=require("body-parser");
 const readJson = require("./readJson.js");
-//const shapes = require(".//public/graph/shapes.js");
+const shapes = require(".//public/grapher/grapher.js");
 
 //const path = require('path');
 //const fs = require('fs');
