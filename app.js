@@ -1,7 +1,12 @@
 var express = require("express");
 var bodyParser=require("body-parser");
 const readJson = require("./readJson.js");
-const shapes = require(".//public/graph/shapes.js");
+
+const path = require('path');
+const fs = require('fs');
+var jwt = require('jsonwebtoken');
+const NodeRSA = require('node-rsa');
+//const shapes = require(".//public/graph/shapes.js");
 var app = express();
 var fs = require('fs');
 var d3 = require('d3');
@@ -13,10 +18,10 @@ app.use(bodyParser.json());  //para peticiones de aplicaciones formato json
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-var json = app.use(express.static("https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"));
+var json = require(express.static("https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"));
 
 app.post("/addMovie", function(req,res){
-  console.log(json);
+  console.log(json.settings);
   var title = req.body.title;
   var yearFrom = req.body.yearFrom;
   var yearTo =req.body.yearTo;
@@ -39,6 +44,19 @@ app.post("/showGraphic", function(req,res){
   readJson.search(movies);
   //shapes.shapes(readJson.search(movies), yearFrom, yearTo);
   res.redirect("/graph/d3.html");
+});
+
+app.post("/saveInfo", function(req, res){
+  const keyPrivate = new NodeRSA('-----BEGIN RSA PRIVATE KEY-----\n'+
+                      'MIIBOQIBAAJAVY6quuzCwyOWzymJ7C4zXjeV/232wt2ZgJZ1kHzjI73wnhQ3WQcL\n'+
+                      'DFCSoi2lPUW8/zspk0qWvPdtp6Jg5Lu7hwIDAQABAkBEws9mQahZ6r1mq2zEm3D/\n'+
+                      'VM9BpV//xtd6p/G+eRCYBT2qshGx42ucdgZCYJptFoW+HEx/jtzWe74yK6jGIkWJ\n'+
+                      'AiEAoNAMsPqwWwTyjDZCo9iKvfIQvd3MWnmtFmjiHoPtjx0CIQCIMypAEEkZuQUi\n'+
+                      'pMoreJrOlLJWdc0bfhzNAJjxsTv/8wIgQG0ZqI3GubBxu9rBOAM5EoA4VNjXVigJ\n'+
+                      'QEEk1jTkp8ECIQCHhsoq90mWM/p9L5cQzLDWkTYoPI49Ji+Iemi2T5MRqwIgQl07\n'+
+                      'Es+KCn25OKXR/FJ5fu6A6A+MptABL3r8SEjlpLc=\n'+
+                      '-----END RSA PRIVATE KEY-----');
+
 });
 
 app.listen(8080);
