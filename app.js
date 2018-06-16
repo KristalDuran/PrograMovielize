@@ -18,10 +18,9 @@ app.use(bodyParser.json());  //para peticiones de aplicaciones formato json
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-<<<<<<< HEAD
+
 //var json = require(express.static("https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json"));
-=======
->>>>>>> 6fda28228bf84b14f657c3d548699dd62081c997
+
 
 app.post("/addMovie", function(req,res){
   var title = req.body.title;
