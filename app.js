@@ -10,7 +10,7 @@ var movies = [];
 var cont = 0;
 var matchMovies = [];
 var json = fs.readFileSync('sample.json','utf-8');
-//const NodeRSA = require('node-rsa');
+const NodeRSA = require('node-rsa');
 //const JSEncrypt = require('jsencrypt');
 
 app.use(express.static('public')); //archivos que no cambian
@@ -65,15 +65,14 @@ app.post("/saveInfo", function(req, res){
 
   //const key = new NodeRSA({b: 512});
   var myDecrypter = new NodeRSA({b: 512});
-   myDecrypter.setOptions({encryptionScheme: 'pkcs1'});
   //key.generateKeyPair(); //key size in bits. 2048 by default. — public exponent. 65537 by default
    var publicKeyJson = {"Key": ""};
    publicKeyJson.Key = myDecrypter.exportKey('public');
    console.log(publicKeyJson.key);
-
-   var myEncrypter = new JSEncrypt();
-   myEncrypter.setPublicKey(publicKeyJson.key);
-   myEncrypter.encrypt(matchMovies, 'base64', 'utf-8');
+   res.redirect("/index.html")
+   //var myEncrypter = new JSEncrypt();
+   //myEncrypter.setPublicKey(publicKeyJson.key);
+   //myEncrypter.encrypt(matchMovies, 'base64', 'utf-8');
    //var clearMessage = myDecrypter.decrypt(publicKeyJson.key, 'utf8');
    //console.log(myEncrypter+"\n+clearMessage");
 });
