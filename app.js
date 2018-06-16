@@ -8,7 +8,8 @@ var jwt = require('jsonwebtoken');
 const NodeRSA = require('node-rsa');
 //const shapes = require(".//public/graph/shapes.js");
 var app = express();
-
+var fs = require('fs');
+var d3 = require('d3');
 var movies = [];
 var cont = 0;
 app.use(express.static('public')); //archivos que no cambian
